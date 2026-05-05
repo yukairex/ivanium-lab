@@ -71,6 +71,19 @@
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .projects-grid { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
+    .filter-bar { flex-direction: column; align-items: stretch !important; gap: 12px !important; }
+    .filter-divider { display: none !important; }
+    .filter-search { width: 100% !important; }
+    .filter-search input { width: 100% !important; box-sizing: border-box; }
+    .filter-tags { flex-wrap: wrap; }
+  }
+  @media (min-width: 641px) and (max-width: 900px) {
+    .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  }
 </style>
 </head>
 <body>
@@ -365,7 +378,7 @@ function App() {
   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
     "accent": "206",
     "cardRadius": "23",
-    "gridCols": "3"
+    "gridCols": "2"
   }/*EDITMODE-END*/;
   const [tweaks, setTweaks] = useState(() => {
     try { return JSON.parse(localStorage.getItem("iv-tweaks")) || TWEAK_DEFAULTS; }
@@ -486,7 +499,7 @@ function App() {
       </section>
 
       {/* Filters */}
-      <div style={{
+      <div className="filter-bar" style={{
         padding: "20px clamp(20px, 5vw, 80px)",
         display: "flex",
         alignItems: "center",
@@ -495,7 +508,7 @@ function App() {
         borderBottom: "1px solid var(--border)",
       }}>
         {/* Search */}
-        <div className="fade-up delay-1" style={{ position: "relative", flex: "0 0 auto" }}>
+        <div className="fade-up delay-1 filter-search" style={{ position: "relative", flex: "0 0 auto" }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--fg3)" strokeWidth="2"
             style={{ position: "absolute", left: 11, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
             <circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/>
@@ -522,10 +535,10 @@ function App() {
           />
         </div>
 
-        <div style={{ width: 1, height: 20, background: "var(--border-strong)", flexShrink: 0 }}/>
+        <div className="filter-divider" style={{ width: 1, height: 20, background: "var(--border-strong)", flexShrink: 0 }}/>
 
         {/* Tag filters */}
-        <div className="fade-up delay-2" style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+        <div className="fade-up delay-2 filter-tags" style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           <button
             onClick={() => setActiveTag(null)}
             style={{
@@ -568,7 +581,7 @@ function App() {
             No projects match your search.
           </div>
         )}
-        <div style={{
+        <div className="projects-grid" style={{
           display: "grid",
           gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))`,
           gap: 20,
