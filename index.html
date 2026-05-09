@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ivanium's Lab</title>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
@@ -71,6 +72,13 @@
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
+
+  /* Code-block logo */
+  .iv-logo { display: inline-flex; align-items: center; gap: 6px; line-height: 1; text-decoration: none; color: var(--fg); }
+  .iv-logo .b { font: 300 1em ui-monospace, monospace; }
+  .iv-logo .iv { font: italic 0.7em 'DM Serif Display', serif; }
+  .iv-logo .c { width: 0.14em; height: 0.6em; background: var(--accent); margin-left: 4px; animation: ivblink 1s steps(2) infinite; flex-shrink: 0; }
+  @keyframes ivblink { 50% { opacity: 0; } }
 
   /* Mobile */
   @media (max-width: 640px) {
@@ -426,13 +434,13 @@ function App() {
         zIndex: 100,
         backdropFilter: "blur(12px)",
       }}>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
-          <span style={{
-            fontFamily: "var(--font-display)",
-            fontSize: 20,
-            color: "var(--fg)",
-            fontStyle: "italic",
-          }}>Ivanium's Lab</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <a href="/" className="iv-logo" style={{ fontSize: "22px" }} aria-label="Ivanium's Lab">
+            <span className="b">{'{'}</span>
+            <span className="iv">iv</span>
+            <span className="b">{'}'}</span>
+            <span className="c"></span>
+          </a>
           <span style={{
             fontSize: 11,
             color: "var(--fg3)",
