@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--
+  Embed snippet for wanyichen.com (Google Sites).
+  Insert → Embed → Embed code → paste this whole file → resize → Publish.
+  Self-contained: no external JS dependencies. Live previews of the three
+  Ivanium's Lab projects, restyled neutral/academic with no external branding.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: transparent;
+    --fg: #1a1a1a;
+    --fg2: #5c5c5c;
+    --fg3: #9a9a9a;
+    --accent: #3a5a8c;
+    --card: #ffffff;
+    --border: rgba(0,0,0,0.10);
+    --shadow: 0 1px 3px rgba(0,0,0,0.05), 0 6px 20px rgba(0,0,0,0.06);
+    --shadow-hover: 0 2px 6px rgba(0,0,0,0.08), 0 14px 40px rgba(0,0,0,0.12);
+    --radius: 12px;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-display: Georgia, "Times New Roman", serif;
+  }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--fg); padding: 8px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .card {
+    display: flex; flex-direction: column;
+    text-decoration: none; color: inherit;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow .25s, transform .25s;
+    min-height: 320px;
+  }
+  .card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+  .preview { position: relative; height: 190px; background: #f4f3f1; overflow: hidden; flex-shrink: 0; }
+  .preview iframe {
+    position: absolute; top: 0; left: 0;
+    width: 200%; height: 200%;
+    transform: scale(0.5); transform-origin: 0 0;
+    border: 0; pointer-events: none;
+  }
+  .preview::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 50px;
+    background: linear-gradient(to bottom, transparent, var(--card)); pointer-events: none;
+  }
+  .arrow {
+    position: absolute; top: 10px; right: 10px;
+    width: 30px; height: 30px; border-radius: 99px;
+    background: var(--card); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: scale(.85); transition: opacity .2s, transform .2s;
+    box-shadow: var(--shadow);
+  }
+  .card:hover .arrow { opacity: 1; transform: scale(1); }
+  .body { padding: 14px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  h2 { font-family: var(--font-display); font-size: 18px; font-weight: 400; line-height: 1.25; }
+  .live { font-size: 9px; font-weight: 700; letter-spacing: .06em; color: var(--accent);
+          background: rgba(58,90,140,.1); padding: 3px 7px; border-radius: 99px; flex-shrink: 0; margin-top: 2px; }
+  p { font-size: 13px; color: var(--fg2); line-height: 1.55; flex: 1; }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+  .tag { font-size: 11px; color: var(--fg2); border: 1px solid var(--border); padding: 3px 9px; border-radius: 99px; }
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+<script>
+  var PROJECTS = [
+    { title: "Fourier Canvas",
+      desc: "Draw anything and watch it decomposed into rotating Fourier epicycles — math made visual.",
+      url: "https://fourier.ivanium.com/", tags: ["Math / Visualization", "Generative Art"] },
+    { title: "Isomorphic Keyboard",
+      desc: "A reimagined piano layout where every chord shape is the same regardless of key.",
+      url: "https://piano.ivanium.com/", tags: ["Music / Audio"] },
+    { title: "Harmonics",
+      desc: "Visualize and synthesize harmonic overtones — see how complex sounds are built from simple sine waves layered together.",
+      url: "https://harmonics.ivanium.com/", tags: ["Music / Audio", "Math / Visualization"] },
+  ];
+  var arrow = '<div class="arrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3a5a8c" stroke-width="2.4"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>';
+  var grid = document.getElementById("grid");
+  PROJECTS.forEach(function (p) {
+    var a = document.createElement("a");
+    a.className = "card"; a.href = p.url; a.target = "_blank"; a.rel = "noopener noreferrer";
+    a.innerHTML =
+      '<div class="preview">' +
+        '<iframe src="' + p.url + '" loading="lazy" sandbox="allow-scripts allow-same-origin" title="' + p.title + '"></iframe>' +
+        arrow +
+      '</div>' +
+      '<div class="body">' +
+        '<div class="title-row"><h2>' + p.title + '</h2><span class="live">LIVE</span></div>' +
+        '<p>' + p.desc + '</p>' +
+        '<div class="tags">' + p.tags.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join("") + '</div>' +
+      '</div>';
+    grid.appendChild(a);
+  });
+</script>
+</body>
+</html>
